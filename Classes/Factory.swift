@@ -30,23 +30,9 @@ class ComponentFactory {
     }
 
 
-
-//    static let map = ComponentFactory.initClasses()
-
     public func register(presenter: Presenter.Type, of component: UIView.Type) {
         componentInfos[String(describing: presenter)] = ComponentInfo(owner: component, xib: nil)
     }
-
-//    public static func initClasses() -> [String: UIView.Type] {
-//        var result = [String: UIView.Type]()
-//
-//        result[String(describing: CardPresenter.self)] = CardView.self
-//        result[String(describing: HeaderBodyPresenter.self)] = HeaderBody.self
-//        result[String(describing: CollapsiblePresenter.self)] = Collapsible.self
-//
-//        return result
-//    }
-//
 
     public func createHierarchy(_ presenter: Presenter, top: UIView) -> UIView? {
 
@@ -57,7 +43,7 @@ class ComponentFactory {
             view.translatesAutoresizingMaskIntoConstraints = false
 
             if let component = view as? Component {
-                component.setPresenter(presenter)
+                component.bindPresenter(presenter)
             }
 
             if let parent = view as? Parent {
@@ -71,5 +57,5 @@ class ComponentFactory {
         }
         return nil
     }
-
+  
 }

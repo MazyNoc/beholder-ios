@@ -20,6 +20,7 @@
 		735AA6C51E7FE44400498BC3 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735AA6C41E7FE44400498BC3 /* Factory.swift */; };
 		735AA6C71E7FE6C200498BC3 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735AA6C61E7FE6C200498BC3 /* Presenter.swift */; };
 		735AA6CB1E7FFBF400498BC3 /* SingleLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735AA6CA1E7FFBF400498BC3 /* SingleLineView.swift */; };
+		737B17E31E80337800DD0942 /* BeholderTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737B17E21E80337800DD0942 /* BeholderTableController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		735AA6C41E7FE44400498BC3 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		735AA6C61E7FE6C200498BC3 /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		735AA6CA1E7FFBF400498BC3 /* SingleLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLineView.swift; sourceTree = "<group>"; };
+		737B17E21E80337800DD0942 /* BeholderTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeholderTableController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 			children = (
 				735AA6C41E7FE44400498BC3 /* Factory.swift */,
 				735AA6C61E7FE6C200498BC3 /* Presenter.swift */,
+				737B17E21E80337800DD0942 /* BeholderTableController.swift */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -303,6 +306,7 @@
 				735AA6C51E7FE44400498BC3 /* Factory.swift in Sources */,
 				735AA6CB1E7FFBF400498BC3 /* SingleLineView.swift in Sources */,
 				735AA6931E7FDCF000498BC3 /* ViewController.swift in Sources */,
+				737B17E31E80337800DD0942 /* BeholderTableController.swift in Sources */,
 				735AA6C71E7FE6C200498BC3 /* Presenter.swift in Sources */,
 				735AA6911E7FDCF000498BC3 /* AppDelegate.swift in Sources */,
 			);

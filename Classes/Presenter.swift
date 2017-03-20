@@ -46,7 +46,7 @@ protocol Parent {
 
 protocol Component {
     init(frame: CGRect)
-    func setPresenter(_ presenter: Presenter)
+    func bindPresenter(_ presenter: Presenter)
     func getRoot() -> UIView
 }
 
@@ -63,7 +63,7 @@ class ViewHolder<P: Presenter> : UIView, Component {
         nibSetup()
     }
 
-    func setPresenter(_ presenter: Presenter) {
+    func bindPresenter(_ presenter: Presenter) {
         if let presenter = presenter as? P {
             updateData(presenter: presenter)
         }
@@ -84,9 +84,9 @@ class ViewHolderGroup<P: Presenter>: ViewHolder<P>, Parent {
         self.addSubview(view)
     }
 
-    override func setPresenter(_ presenter: Presenter) {
+    override func bindPresenter(_ presenter: Presenter) {
         populateChildren(views: subviews, presenters: presenter.children)
-        super.setPresenter(presenter)
+        super.bindPresenter(presenter)
     }
 }
 
@@ -116,7 +116,7 @@ extension UIView {
     func populateChildren(views: [UIView], presenters: [Presenter]) {
         zip(views, presenters).forEach { (view, presenter) in
             if let component = view as? Component {
-                component.setPresenter(presenter)
+                component.bindPresenter(presenter)
             }
         }
     }
