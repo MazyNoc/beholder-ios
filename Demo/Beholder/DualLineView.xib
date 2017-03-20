@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DualLineView" customModule="Beholder" customModuleProvider="target">
+            <connections>
+                <outlet property="text" destination="6OP-mb-3wJ" id="aoT-xu-aIS"/>
+                <outlet property="title" destination="KLb-jM-CBu" id="kb6-ZJ-Gvx"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="691" height="92"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLb-jM-CBu">
+                    <rect key="frame" x="0.0" y="0.0" width="691" height="33.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6OP-mb-3wJ">
+                    <rect key="frame" x="0.0" y="71" width="691" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="6OP-mb-3wJ" secondAttribute="trailing" id="15I-5H-0jD"/>
+                <constraint firstAttribute="trailing" secondItem="KLb-jM-CBu" secondAttribute="trailing" id="FcO-Dn-BvH"/>
+                <constraint firstItem="KLb-jM-CBu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ybf-B9-KAK"/>
+                <constraint firstAttribute="bottom" secondItem="6OP-mb-3wJ" secondAttribute="bottom" id="bSX-7O-a1m"/>
+                <constraint firstItem="6OP-mb-3wJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gFn-sv-qhs"/>
+                <constraint firstItem="KLb-jM-CBu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="plJ-g7-3N5"/>
+                <constraint firstItem="6OP-mb-3wJ" firstAttribute="top" secondItem="KLb-jM-CBu" secondAttribute="bottom" priority="250" id="yNz-XT-Yyg"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-66.5" y="-236"/>
+        </view>
+    </objects>
+</document>

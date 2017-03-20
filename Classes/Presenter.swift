@@ -13,8 +13,8 @@ class Presenter {
 
     var children: [Presenter] = []
 
-    func addChild(_ weff: Presenter) {
-        children.append(weff)
+    func addChild(_ presenter: Presenter) {
+        children.append(presenter)
     }
 
     class func layoutHash() -> Int { return String(describing: self).hashValue }
@@ -50,7 +50,8 @@ protocol Component {
     func getRoot() -> UIView
 }
 
-class ViewHolder: UIView, Component {
+// convinience
+class ViewHolder<P: Presenter> : UIView, Component {
 
     override required init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,11 +60,17 @@ class ViewHolder: UIView, Component {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        // fatalError("init(coder:) has not been implemented")
+        nibSetup()
     }
 
     func setPresenter(_ presenter: Presenter) {
-
+        if let presenter = presenter as? P {
+            updateData(presenter: presenter)
+        }
+    }
+    
+    func updateData(presenter: P){
+        
     }
 
     func getRoot() -> UIView {
@@ -71,21 +78,23 @@ class ViewHolder: UIView, Component {
     }
 }
 
-class ViewHolderGroup: ViewHolder, Parent {
+// convinience
+class ViewHolderGroup<P: Presenter>: ViewHolder<P>, Parent {
     func addChild(_ view: UIView) {
-
+        self.addSubview(view)
     }
 
     override func setPresenter(_ presenter: Presenter) {
         populateChildren(views: subviews, presenters: presenter.children)
+        super.setPresenter(presenter)
     }
 }
 
 extension UIView {
 
-    func setupComponent(nibName: String?) {
+    func setupComponent() {
         let bundle = Bundle(for: type(of: self))
-        let nib: String! = nibName != nil ? nibName : String(describing: type(of: self))
+        let nib: String! = String(describing: type(of: self))
         UINib(nibName: nib, bundle: bundle).instantiate(withOwner: self, options: nil)
         addSubview(self)
         self.frame = bounds

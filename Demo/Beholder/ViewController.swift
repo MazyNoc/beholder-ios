@@ -15,10 +15,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let factory = ComponentFactory()
         factory.register(presenter: SingleLinePresenter.self, of: SingleLineView.self)
+        factory.register(presenter: DualLinePresenter.self, of: DualLineView.self)
 
         var presenters: [Presenter] = []
         presenters.append(SingleLinePresenter())
-        presenters.append(SingleLinePresenter())
+        presenters.append(DualLinePresenter())
         presenters.append(SingleLinePresenter())
 
 
@@ -27,6 +28,8 @@ class ViewController: UIViewController {
             if let view = view {
                 rootView.addArrangedSubview(view)
                 print("adding")
+            } else {
+                print("Pres:\(pres) not registered")
             }
         }
         // Do any additional setup after loading the view, typically from a nib.
@@ -39,6 +42,4 @@ class ViewController: UIViewController {
 
 }
 
-class SingleLinePresenter: Presenter {
 
-}
