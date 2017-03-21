@@ -11,22 +11,65 @@ import UIKit
 
 class BeholderForceRefresh {
     static var callbacks = [() -> ()]()
-    
-    static func addCallback(f: @escaping ()->()){
+
+    static func addCallback(f: @escaping () -> ()) {
         callbacks.append(f)
     }
-    
-    static func alert(){
-        callbacks.forEach{a in a()}
+
+    static func alert() {
+        callbacks.forEach { a in a() }
     }
 }
 
+
+class BeholderTableView: NSObject, UITableViewDataSource, UITableViewDelegate {
+    var bdelegate: BeholderTableDelegate?
+    var data: [Presenter]?
+    init(delegate: BeholderTableDelegate, data:[Presenter]){
+        self.bdelegate = delegate
+        self.data = data
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       return 3
+        // return data == nil ? 0 : data!.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let presenter = data![indexPath.row]
+        return bdelegate!.getCell(for: presenter, at: indexPath)
+        //return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    }
+}
+
+class BeholderTableDelegate {
+    let usedIdentifiers: Set<String> = Set();
+    let tableView: UITableView
+    let factory: ComponentFactory
+    
+    init(tableView: UITableView, factory: ComponentFactory) {
+        self.tableView = tableView;
+        self.factory = factory;
+    }
+
+    func getCell(for presenter: Presenter, at indexPath: IndexPath) -> UITableViewCell {
+        let identifier = presenter.deepLayoutIdentifier()
+        if !usedIdentifiers.contains(identifier) {
+            tableView.register(BeholderTableViewCell.self, forCellReuseIdentifier: identifier)
+        }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! BeholderTableViewCell
+        cell.prepare(presenter, by: identifier, with: factory);
+        return cell
+    }
+}
 
 class BeholderTableController: UITableViewController {
 
     let usedIdentifiers: Set<String> = Set();
     var factory: ComponentFactory?
-    var data:[Presenter]?
+    var data: [Presenter]?
+    var beholder: BeholderTableDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,18 +79,31 @@ class BeholderTableController: UITableViewController {
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
         }
+        Mock.i()
+        self.data = Mock.presenters
+        self.beholder = BeholderTableDelegate(tableView: self.tableView,factory: Mock.factory)
+        BeholderForceRefresh.alert()
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+         return data == nil ? 0 : data!.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let presenter = data[indexPath.row]
-        let identifier = presenter.deepLayoutIdentifier()
-        if !usedIdentifiers.contains(identifier) {
-            tableView.register(BeholderTableViewCell.self, forCellReuseIdentifier: identifier)
+        guard let data = data, let beholder = beholder else {
+            return UITableViewCell()
         }
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ComponentTableViewCell
-        cell.preparePresenter(presenter, identifier: identifier);
-        return cell
+        let presenter = data[indexPath.row]
+        return beholder.getCell(for: presenter, at: indexPath)
+        
+//        let identifier = presenter.deepLayoutIdentifier()
+//        if !usedIdentifiers.contains(identifier) {
+//            tableView.register(BeholderTableViewCell.self, forCellReuseIdentifier: identifier)
+//        }
+//
+//        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ComponentTableViewCell
+//        cell.preparePresenter(presenter, identifier: identifier);
+//        return cell
     }
 
 }
@@ -63,7 +119,7 @@ class BeholderTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func preparePresenter(_ presenter: Presenter, identifier: String, with factory: ComponentFactory) {
+    func prepare(_ presenter: Presenter, by identifier: String, with factory: ComponentFactory) {
         if(prepared) {
             guard self.identifier == identifier else { preconditionFailure("not the same identifier") }
             debug.text = "reused, id:\(identifier)"

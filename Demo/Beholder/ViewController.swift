@@ -10,7 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var rootView: UIStackView!
-
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let factory = ComponentFactory()
@@ -32,6 +33,15 @@ class ViewController: UIViewController {
                 print("Pres:\(pres) not registered")
             }
         }
+        
+        let delegate = BeholderTableDelegate(tableView: tableView, factory: factory)
+        tableView.beginUpdates()
+        let d = BeholderTableView(delegate: delegate, data: presenters)
+        tableView.dataSource =  d
+        tableView.delegate = d
+        tableView.endUpdates()
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -41,5 +51,6 @@ class ViewController: UIViewController {
     }
 
 }
+
 
 
